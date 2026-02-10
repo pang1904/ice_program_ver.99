@@ -1,0 +1,23 @@
+<?php
+session_start();
+include "../config/db.php";
+
+$q = mysqli_query($conn, "SELECT * FROM products");
+?>
+
+<h2>สินค้าทั้งหมด</h2>
+
+<?php while($p = mysqli_fetch_assoc($q)): ?>
+  <div style="border:1px solid #ccc; padding:10px; margin:10px;">
+    <h3><?= $p['name'] ?></h3>
+    <p>ราคา <?= $p['price'] ?> บาท</p>
+    <p>คงเหลือ <?= $p['quantity'] ?></p>
+
+    <a href="product.php?id=<?= $p['id'] ?>">ดูรายละเอียด</a> |
+    <a href="add_to_cart.php?id=<?= $p['id'] ?>">ใส่ตะกร้า</a>
+  </div>
+<?php endwhile; ?>
+<nav>
+  <a href="cart.php">ตะกร้าสินค้า</a> |
+  <a href="orders.php">คำสั่งซื้อของฉัน</a> |
+  <a href="../auth/logout.php">ออกจากระบบ</a>
